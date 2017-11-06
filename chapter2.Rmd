@@ -1,7 +1,5 @@
-# Insert chapter 2 title here
+# Chapter 2 - A course diary for week one
 
 *Describe the work you have done this week and summarize your learning.*
 
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
+This week's work was focused on setting up tools necessary for completing the rest of the course, including the use of Github and Rstudio. Github includes a website and accompanying software and is used for version control. This may be done using a desktop or command-line version. As I will be completing this course on university computers on which I do not have administrator rights, I have opted to simply upload my files directly to Github. A project template was available for use in the course, including three R markdown files for modification. These were modified to include necessary info (name, links to github pages) and knitted to an html document for publication. As this is now my third course in which Rstudio was used, this went very smoothly. I look forward to getting into the data!
