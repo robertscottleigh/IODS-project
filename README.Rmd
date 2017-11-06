@@ -1,0 +1,4 @@
+Creating this file was part of exercise 1 of the Introduction to Open Data Science Course, autumn 2017. 
+
+*link to course diary*
+https://robertscottleigh.github.io/IODS-project/
