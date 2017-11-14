@@ -1,5 +1,54 @@
-# Chapter 2 - A course diary for week one
+# Chapter 2 - Regression and model variation
 
-*Describe the work you have done this week and summarize your learning.*
+Structure and dimensions of data. The dataset consists of results from a questionairre of students. It consists of 7 variables: gender, age, attitude, deep learning, strategic learning, surface learning, and points awwarded on an exam. Individuals (166 total) are in rows and variables measured are in columns. Note that for this report, descriptions of the data are just above the code/plots. 
 
-This week's work was focused on setting up tools necessary for completing the rest of the course, including the use of Github and Rstudio. Github includes a website and accompanying software and is used for version control. This may be done using a desktop or command-line version. As I will be completing this course on university computers on which I do not have administrator rights, I have opted to simply upload my files directly to Github. A project template was available for use in the course, including three R markdown files for modification. These were modified to include necessary info (name, links to github pages) and knitted to an html document for publication. As this is now my third course in which Rstudio was used, this went very smoothly. I look forward to getting into the data!
+```{r}
+learning2014 <- read.csv("C:/HY-Data/LEIGH/course material/introduction_to_open_data_science/IODS_project_6_nov/data/learning2014.csv")
+str(learning2014)
+dim(learning2014)
+
+```
+
+
+Graphical overview of the data. The 'ggpairs' function, which relies on the 'GGally' and 'ggplot2' packages, plots all variables against one another. This is a quick and easy way to see potential relationships between variables in order to plan further analysis. In this case, gender was plotted as different colors. Graphical representation of the data suggests linear relationships between some of the variables, such as "attitude" vs "stra" and "deep" vs "surf".   
+```{r}
+library(GGally)
+library(ggplot2)
+ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+```
+
+
+Summary of the variables in the data. The 'summary' function allows a text-based overview of a datset, presenting interquartile range, min/max, median, and mean of all numeric variables in a dataset, and numerical representations of categorical variables. This is a very good first step, especially if you are not very familiar with a dataset. In the learning 2014 dataset, the course participants were mostly female (110/166) and their age ranges were from 17-55. The median student age was 22 years old. Performance on the exam ranged from a low of 7 points to a high of 33 points, with an average score of 22.72. The results of survey questions, including the variables attitude, deep, stra, and surf were 1:5 scale. 
+
+```{r}
+summary(learning2014)
+```
+
+
+
+Based on the graphical representations, attitude, stra, and surf were chosen as explanatory variables for points. The lm() function is used for generating a linear model, and summary() used to display results. This model shows only "attitude" is a statistically significant explanatory variable (p=1.93e-08). The variable "stra" is close to significance (p=0.11716), and the variable "surf" is not significant (0.46563). Only "attitude"" is included in further analysis. 
+
+```{r}
+model_1 <- lm(points ~ attitude + stra + surf, data = learning2014)
+summary(model_1)
+```
+
+The model was refitted with only attitude as an explanatory variable, as that was the only variable which was statistically significant in the initial analysis. The median residual of the model, or difference between the values predicted by the linear model and real experimental values, is 0.43. The y-intercept of the line is 11.6372 (alpha parameter), and the slope of the line is 3.5255 (beta parameter). "Points"" thus increase by a factor of 3.5255 with every increasing point of "attitude". If the null hypothesis is that the beta parameter of "attitude"" is 0, the p value is 4.12e-09. The R-squared value is 0.1906, suggesting that the variable "attitude" explains 19% of the variation of exam points around the mean. This is not surprising as other factors surely affect exam performance, such as study time, general intelligence, test anxiety, etc. 
+
+```{r}
+
+model_2 <- lm(points~attitude, data=learning2014)
+summary(model_2)
+
+```
+
+As linear models rely on basic assumptions about the data, in terms of spread, normality, and lack of outliers, it is necessary to include further analysis of the suitability of the linear model to a particular dataset. This is possible using the plot() function and the 'which' = option. This includes pre-defined plots. In whis case, residuals vs fitted, normal Q-Q, and residuals vs leverage were chosen.  The residuals vs Fitted plot suggests that there is a decrease in the spread of values as the fitted values increase. This indicates the predictiveness of the model varies with the score. In the Q-Q plot, here is a resonably good fit to the line, suggesting that the errors are normally distributed. Analysis of the Residuals vs Leverage plot suggests that there are no clear outliers. 
+```{r}
+plot(model_2, which = c(1:2, 5))
+
+```
+
+
+
+
+

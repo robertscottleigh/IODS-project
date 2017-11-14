@@ -1,7 +1,11 @@
-# R Studio Chapter 1 - A beginning
+
+# Chapter 1 - A beginning
 
 *This is the first exercise for the Introduction to Open Data Science course. It includes a link to my github repository. *
 
 
-*link to repository*
 https://github.com/robertscottleigh/IODS-project.git
+ 
+This week's work was focused on setting up tools necessary for completing the rest of the course, including the use of Github and Rstudio. Github includes a website and accompanying software and is used for version control. This may be done using a desktop or command-line version. As I will be completing this course on university computers on which I do not have administrator rights, I have opted to simply upload my files directly to Github. A project template was available for use in the course, including three R markdown files for modification. These were modified to include necessary info (name, links to github pages) and knitted to an html document for publication. As this is now my third course in which Rstudio was used, this went very smoothly. I look forward to getting into the data!
+
+
