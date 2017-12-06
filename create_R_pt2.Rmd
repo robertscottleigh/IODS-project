@@ -1,0 +1,48 @@
+
+Name: Robert Leigh
+This file includes data analysis for IODS exercise 5. 
+
+Original data source: http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human1.txt
+
+
+```{r}
+
+
+library(dplyr)
+library(stringr)
+
+#read tables and see summary
+human <- read.table("C:/HY-Data/LEIGH/course material/introduction_to_open_data_science/IODS_project_6_nov/human1.txt", sep=",", header=TRUE)
+str(human)
+dim(human)
+summary(human)
+
+#Transform GNI to numeric form.
+str_replace(human$GNI, pattern=",", replace ="") %>% as.numeric() -> human$GNI
+
+#Exlude unneeded variables according to instructions. 
+keep <- c("Country", "Edu2.FM", "Labo.FM", "Edu.Exp", "Life.Exp", "GNI", "Mat.Mor", "Ado.Birth", "Parli.F")
+human <- select(human, one_of(keep))
+
+#Remove all rows with missing values.
+human <- filter(human, complete.cases(human)== TRUE)
+
+#Remove observations which relate to regions instead of countries.
+last <- nrow(human) - 7
+human <- human[1:last, ]
+
+#Define the row names as the "Country" name and remove the country column. 
+rownames(human) <- human$Country
+human <- select(human, -Country)
+
+#Save the human data in the data folder. 
+write.csv(human, file = "C:/HY-Data/LEIGH/course material/introduction_to_open_data_science/IODS_project_6_nov/data/human.csv", row.names = TRUE)
+
+
+```
+
+
+```{r}
+
+```
+
